@@ -1,7 +1,19 @@
 #pragma once
+#include <memory.h>
 #define STRING_EMPTY ""
 
 #define _array_length(arr) sizeof(arr) / sizeof((arr)[0])
+
+#define _add_vector(T,N) \
+T(*Add(T(*oldarr)[N],T value))[N + 1] { \
+	T(*newarr)[N + 1] = (T(*)[N + 1])malloc(sizeof(T[N + 1])); \
+	if (memcpy_s(newarr,sizeof(newarr),oldarr,sizeof(oldarr))==0) { \
+		return newarr; \
+	} \
+	else { \
+		abort(); \
+	} \
+}
 
 #define _concat_arr(T,N,L) \
  T (*ConcatArr(T(*newarr)[N] , T(*oldarr)[L]))[N] { \
@@ -28,4 +40,10 @@
 	else { \
 		abort(); \
 	} \
+}
+
+
+#define _create_vector(T,N) \
+T(*CreateVector())[N]{ \
+	return (T(*)[N])malloc(sizeof(T[N])); \
 }
