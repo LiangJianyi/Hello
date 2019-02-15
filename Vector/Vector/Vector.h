@@ -70,7 +70,4 @@ T(*VectorConcat(T(*vec1)[N1], T(*vec2)[N2]))[N1 + N2] { \
 }
 
 // 创建一个 vector
-#define _create_vector(T,N) \
-T(*CreateVector())[N]{ \
-	return (T(*)[N])malloc(sizeof(T[N])); \
-}
+#define _create_vector(T,N) (T(*)[N])malloc(sizeof(T[N]))
