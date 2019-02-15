@@ -43,7 +43,7 @@ T(*VectorConcat(T(*vec1)[N1], T(*vec2)[N2]))[N1 + N2] { \
 
 // 把一个 vector 的内容拷贝到另一个空 vector
 #define _vector_copy(T,N,L) \
- T(*ArrayCopy(T(*newarr)[N] , T(*oldarr)[L]))[N] { \
+ T(*VectorCopy(T(*newarr)[N] , T(*oldarr)[L]))[N] { \
 	if (newarr != NULL && oldarr != NULL) { \
 		size_t olen = _vector_length(*oldarr); \
 		size_t nlen = _vector_length(*newarr); \
