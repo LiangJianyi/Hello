@@ -5,15 +5,44 @@ void main() {
 	void PrintDigital(int d);
 
 	struct LINKED_LIST_DIGITAL * first = CreateNode(1);
-	Add(first, 2);
-	Add(first, 3);
+	Add(first, 20);
+	Add(first, 20);
 	Add(first, 4);
 	Add(first, 5);
+	Add(first, 6);
+	Add(first, 5);
+	Add(first, 5);
 	ForEach(first, PrintDigital);
+	printf_s("Count: %d\n", Count(first));
+
+	printf_s("Remove(likptr,5):\n");
+	first = Remove(first, 5);
+	ForEach(first, PrintDigital);
+	printf_s("Count: %d\n", Count(first));
+
+	printf_s("Remove(likptr,5):\n");
+	first = Remove(first, 5);
+	ForEach(first, PrintDigital);
+	printf_s("Count: %d\n", Count(first));
+
+	printf_s("Remove(likptr,5):\n");
+	first = Remove(first, 5);
+	ForEach(first, PrintDigital);
+	printf_s("Count: %d\n", Count(first));
+
+	printf_s("Remove(likptr,2):\n");
+	first = Remove(first, 2);
+	ForEach(first, PrintDigital);
+	printf_s("Count: %d\n", Count(first));
+
+	printf_s("Remove(likptr,2):\n");
+	first = Remove(first, 2);
+	ForEach(first, PrintDigital);
+	printf_s("Count: %d\n", Count(first));
+
 	RemoveAll(&first);
-	ForEach(first, NULL);
-	if (first==NULL) {
-		printf_s("Remove all.");
+	if (first == NULL) {
+		printf_s("Remove all node.");
 	}
 }
 

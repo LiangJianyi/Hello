@@ -28,6 +28,15 @@ struct LINKED_LIST_DIGITAL * CreateNode(int content) {
 	return node;
 }
 
+size_t Count(struct LINKED_LIST_DIGITAL * likptr) {
+	size_t incre = 0;
+	while (likptr != NULL) {
+		incre += 1;
+		likptr = likptr->next;
+	}
+	return incre;
+}
+
 void ForEach(struct LINKED_LIST_DIGITAL * likptr, void(*p)(int)) {
 	if (likptr != NULL) {
 		p(likptr->content);
@@ -50,30 +59,36 @@ struct LINKED_LIST_DIGITAL * Find(struct LINKED_LIST_DIGITAL * likptr, int conte
 struct LINKED_LIST_DIGITAL * Remove(struct LINKED_LIST_DIGITAL * likptr, size_t index) {
 	// 移除第 index 个节点并返回新的链表
 	// 比如链表：(1)->(20)->(20)->(4)->(5)->(6)->(5)->(5)
-	// 执行 struct LINKED_LILST_dIGITAL * newlik = Find(likptr,5)
+	// 执行 struct LINKED_LILST_dIGITAL * newlik = Remove(likptr,5)
 	// newlik 的值为 (1)->(20)->(20)->(4)->(5)->(5)->(5)
-	// 再次执行 struct LINKED_LILST_dIGITAL * newlik = Find(likptr,5)
+	// 再次执行 struct LINKED_LILST_dIGITAL * newlik = Remove(likptr,5)
 	// newlik 的值为 (1)->(20)->(20)->(4)->(5)->(5)
-	// 再次执行 struct LINKED_LILST_dIGITAL * newlik = Find(likptr,5)
+	// 再次执行 struct LINKED_LILST_dIGITAL * newlik = Remove(likptr,5)
 	// newlik 的值为 (1)->(20)->(20)->(4)->(5)
-	// 再次执行 struct LINKED_LILST_dIGITAL * newlik = Find(likptr,2)
+	// 再次执行 struct LINKED_LILST_dIGITAL * newlik = Remove(likptr,2)
 	// newlik 的值为 (1)->(20)->(4)->(5)
-	// 再次执行 struct LINKED_LILST_dIGITAL * newlik = Find(likptr,2)
+	// 再次执行 struct LINKED_LILST_dIGITAL * newlik = Remove(likptr,2)
 	// newlik 的值为 (1)->(20)->(5)
 	// 以此类推......
 	if (likptr != NULL) {
-		struct LINKED_LIST_DIGITAL * previous = NULL;
-		for (size_t i = 0; i <= index; i++) {
-			if (i == index) {
-				previous->next = likptr->next;
-				free(likptr);
+		if (index < Count(likptr)) {
+			struct LINKED_LIST_DIGITAL * previous = NULL;
+			struct LINKED_LIST_DIGITAL * firstNode = likptr;
+			for (size_t i = 0; i <= index; i++) {
+				if (i == index) {
+					previous->next = likptr->next;
+					free(likptr);
+				}
+				else {
+					previous = likptr;
+					likptr = likptr->next;
+				}
 			}
-			else {
-				previous = likptr;
-				likptr = likptr->next;
-			}
+			return firstNode;
 		}
-		return previous;
+		else {
+			abort();
+		}
 	}
 }
 
