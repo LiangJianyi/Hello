@@ -47,7 +47,7 @@ struct LINKED_LIST_DIGITAL * Find(struct LINKED_LIST_DIGITAL * likptr, int conte
 	return NULL;
 }
 
-struct LINKED_LIST_DIGITAL * Remove(struct LINKED_LIST_DIGITAL * likptr, int index) {
+struct LINKED_LIST_DIGITAL * Remove(struct LINKED_LIST_DIGITAL * likptr, size_t index) {
 	// 移除第 index 个节点并返回新的链表
 	// 比如链表：(1)->(20)->(20)->(4)->(5)->(6)->(5)->(5)
 	// 执行 struct LINKED_LILST_dIGITAL * newlik = Find(likptr,5)
@@ -61,7 +61,20 @@ struct LINKED_LIST_DIGITAL * Remove(struct LINKED_LIST_DIGITAL * likptr, int ind
 	// 再次执行 struct LINKED_LILST_dIGITAL * newlik = Find(likptr,2)
 	// newlik 的值为 (1)->(20)->(5)
 	// 以此类推......
-	return NULL;
+	if (likptr != NULL) {
+		struct LINKED_LIST_DIGITAL * previous = NULL;
+		for (size_t i = 0; i <= index; i++) {
+			if (i == index) {
+				previous->next = likptr->next;
+				free(likptr);
+			}
+			else {
+				previous = likptr;
+				likptr = likptr->next;
+			}
+		}
+		return previous;
+	}
 }
 
 void RemoveAll(struct LINKED_LIST_DIGITAL ** likptr) {
