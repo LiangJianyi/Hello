@@ -21,7 +21,7 @@ void Add(struct LINKED_LIST_DIGITAL * likptr, int content) {
 	}
 }
 
-struct LINKED_LIST_DIGITAL * CreateFirst(int content) {
+struct LINKED_LIST_DIGITAL * CreateNode(int content) {
 	struct LINKED_LIST_DIGITAL * node = (struct LINKED_LIST_DIGITAL*)malloc(sizeof(struct LINKED_LIST_DIGITAL));
 	node->content = content;
 	node->next = NULL;
@@ -62,4 +62,16 @@ struct LINKED_LIST_DIGITAL * Remove(struct LINKED_LIST_DIGITAL * likptr, int ind
 	// newlik 的值为 (1)->(20)->(5)
 	// 以此类推......
 	return NULL;
+}
+
+void RemoveAll(struct LINKED_LIST_DIGITAL ** likptr) {
+	if (*likptr != NULL) {
+		struct LINKED_LIST_DIGITAL * temp = NULL;
+		while (*likptr != NULL) {
+			temp = *likptr;
+			*likptr = (*likptr)->next;
+			free(temp);
+		}
+		likptr = NULL;
+	}
 }
