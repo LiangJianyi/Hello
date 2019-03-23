@@ -9,10 +9,13 @@
 #define _vector_length(arr) sizeof(arr) / sizeof((arr)[0])
 
 // 给指定的 vector 添加一个元素
+// N 为指定的 vector 原来的长度
 #define _add_vector(T,N) \
 T(*Add(T(*oldarr)[N],T value))[N + 1] { \
 	T(*newarr)[N + 1] = (T(*)[N + 1])malloc(sizeof(T[N + 1])); \
-	if (memcpy_s(newarr,sizeof(newarr),oldarr,sizeof(oldarr))==0) { \
+	if (memcpy_s(newarr,sizeof(*newarr),oldarr,sizeof(*oldarr))==0) { \
+		(*newarr)[N - 1] = value; \
+		(*newarr)[N] = '\0'; \
 		return newarr; \
 	} \
 	else { \
