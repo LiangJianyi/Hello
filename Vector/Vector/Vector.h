@@ -74,3 +74,46 @@ T(*VectorConcat(T(*vec1)[N1], T(*vec2)[N2]))[N1 + N2] { \
 
 // 创建一个 vector
 #define _create_vector(T,N) (T(*)[N])malloc(sizeof(T[N]))
+
+#define _list(T) \
+typedef struct LIST_##T { \
+	size_t index; \
+	size_t capacity; \
+	T data[1]; \
+}List_##T; \
+\
+List_##T * Create_##T(size_t sz) { \
+	if (!sz) sz = 1; \
+	size_t no_of_bytes = sizeof(List_##T) + sizeof(T) * (sz - 1); \
+	List_##T * array = (List_##T*)malloc(no_of_bytes); \
+	if (array) { \
+		array->index = 0; \
+		array->capacity = sz; \
+	} \
+	return array; \
+} \
+\
+void PushBack_##T(List_##T** pp, T e) { \
+	if (pp && *pp) { \
+		if ((*pp)->index == (*pp)->capacity) { \
+			size_t no_of_bytes = sizeof(List_##T) + sizeof(T) * ((*pp)->capacity * 2 - 1); \
+			*pp = (T*)realloc(*pp, no_of_bytes); \
+			if (*pp) { \
+				(*pp)->capacity *= 2; \
+			} \
+		} \
+		if (*pp) { \
+			(*pp)->data[(*pp)->index] = e; \
+			((*pp)->index) += 1; \
+		} \
+	} \
+}
+
+#define _print_list(T, PRINT_FORMAT) \
+void PrintList_##T(List_##T * lst) { \
+	printf_s("index: %d, capacity: %d, data: ", lst->index, lst->capacity); \
+	for (size_t i = 0; i < lst->index; i++) { \
+		printf_s(""#PRINT_FORMAT", ", lst->data[i]); \
+	} \
+	printf_s("\n"); \
+}
