@@ -82,8 +82,8 @@ typedef struct LIST_##T { \
 	T data[1]; \
 }List_##T; \
 \
-List_##T * Create_##T(size_t sz) { \
-	if (!sz) sz = 1; \
+List_##T * Create_##T() { \
+	size_t sz = 1; \
 	size_t no_of_bytes = sizeof(List_##T) + sizeof(T) * (sz - 1); \
 	List_##T * array = (List_##T*)malloc(no_of_bytes); \
 	if (array) { \
