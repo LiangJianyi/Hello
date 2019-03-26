@@ -85,12 +85,12 @@ typedef struct LIST_##T { \
 List_##T * Create_##T() { \
 	size_t sz = 1; \
 	size_t no_of_bytes = sizeof(List_##T) + sizeof(T) * (sz - 1); \
-	List_##T * array = (List_##T*)malloc(no_of_bytes); \
-	if (array) { \
-		array->index = 0; \
-		array->capacity = sz; \
+	List_##T * lst = (List_##T*)malloc(no_of_bytes); \
+	if (lst) { \
+		lst->index = 0; \
+		lst->capacity = sz; \
 	} \
-	return array; \
+	return lst; \
 } \
 \
 void PushBack_##T(List_##T** pp, T e) { \
